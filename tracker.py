@@ -12,14 +12,11 @@ def read_log_file():
     current_log = []
     with open("full_log.txt") as log:
         for row in log.readlines():
-            #print(row)
             if "new_log" in row:
                 if len(current_log) == 0:
-                    print("first log")
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
                     current_log.append(formatted)
                 else:
-                    print("new log")
                     logs.append(current_log)
                     current_log = []
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
