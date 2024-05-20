@@ -1,3 +1,7 @@
+from Challenge import Challenge
+import json
+
+
 logs = []
 
 
@@ -17,6 +21,7 @@ def read_log_file():
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
                     current_log.append(formatted)
                 else:
+                    print(len(current_log))
                     logs.append(current_log)
                     current_log = []
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
@@ -29,17 +34,35 @@ def read_log_file():
                     if (i != 0 and i != 3):
                         string = num(string)
                     trim.append(string)
-                current_log.append(trim)
+                challenge = Challenge(trim)
+                if challenge.approved:
+                    current_log.append(challenge)
                 
         log.close()
     logs.append(current_log)
 
+def convert_logs_json():
+    file = []
+    for log in logs:
+        date = log[0][0]
+        time = log[0][1]
+        jsons = []
+        for i in range(1, len(log)):
+            jsons.append(log[i].format_json())
+        dictionary = {"date": date, "time": time, "challenges": jsons}
+        file.append(dictionary)
+    return file
+
+def export_json():
+    with open('report/data.json', 'w') as f:
+        json.dump(convert_logs_json(), f)
 
 def main():
     read_log_file()
     for log in logs:
-        print(log)
+        #print(log)
         print("")
+    export_json()
 
 if __name__ == "__main__": main()
 

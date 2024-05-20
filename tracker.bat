@@ -16,5 +16,23 @@ FOR %%i in (aimtrainer_results_*) do (
 copy full_log.txt %script_path%
 del full_log.txt
 cd %script_path%
+
+cd report
+type data.json > old_data.json
+cd ..
+
+echo "" > report/data.json
 call python tracker.py
 del full_log.txt
+
+:: Create variable with report json data
+:: because fetching local files in html+js
+:: is dumb as fuck
+cd report
+echo const data=>report.js
+type data.json>>report.js
+type default.js>>report.js
+cd ..
+
+::Open HTML page that shows report
+start "" "./report/report.html"

@@ -1,2 +1,4 @@
 .env
 full_log.txt
+report/*.json
+report/report.js
