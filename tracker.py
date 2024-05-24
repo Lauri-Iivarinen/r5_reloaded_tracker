@@ -1,6 +1,8 @@
-from Challenge import Challenge
-import json
 
+import json
+from Session import Session
+from Challenge import Challenge
+from r5_reloaded_tracker.Data_processor import Data_processor
 
 logs = []
 
@@ -21,7 +23,7 @@ def read_log_file():
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
                     current_log.append(formatted)
                 else:
-                    print(len(current_log))
+                    #print(len(current_log))
                     logs.append(current_log)
                     current_log = []
                     formatted = row.replace("new_log ", "").replace("\n", "").split("-")
@@ -58,11 +60,12 @@ def export_json():
         json.dump(convert_logs_json(), f)
 
 def main():
+    sessions: list[Session] = []
     read_log_file()
     for log in logs:
-        #print(log)
-        print("")
-    export_json()
+        sessions.append(Session(log))
+    processor = Data_processor(sessions)
+    #export_json()
 
 if __name__ == "__main__": main()
 
