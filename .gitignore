@@ -2,3 +2,5 @@
 full_log.txt
 report/*.json
 report/report.js
+__pycache__
+__pycache__/
