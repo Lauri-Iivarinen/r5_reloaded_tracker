@@ -22,7 +22,7 @@ type data.json > old_data.json
 cd ..
 
 echo "" > report/data.json
-call python tracker.py
+call python python/tracker.py
 del full_log.txt
 
 :: Create variable with report json data

@@ -15,8 +15,11 @@ class Challenge:
             "damage" : self.damage,
             "crits" : self.crits,
             "shots" : self.shots,
-            "time" : self.time
+            "duration" : self.duration
         }
+    
+    def __str__(self) -> str:
+        return f"{self.weapon}, {self.duration}, {self.accuracy}, {self.shots}"
 
 
     def __init__(self, array) -> None:
@@ -28,6 +31,6 @@ class Challenge:
         self.damage = array[5]
         self.crits = array[6]
         self.shots = array[7]
-        self.time = array[8]
+        self.duration: int = array[8]
 
         self.should_be_ignored()

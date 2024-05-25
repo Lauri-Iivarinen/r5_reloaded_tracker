@@ -1,9 +1,9 @@
 import json
 from Challenge import Challenge
 from Session import Session
+from Gamemode import Gamemode
 
 class File_handler:
-
 
     def num(self,s): #Convert string to either int or float based on input given
         try:
@@ -44,20 +44,25 @@ class File_handler:
         self.files[filename] = self.logs
         return self.logs
 
-    def convert_logs_json(self, data: list[Session]):
-        file = []
+    def convert_logs_json(self, data: list[Session], gamemodes: list[Gamemode]):
+        file = {}
+        sessions = []
         for log in data:
-            log.print()
             jsons = []
             for i in range(1, len(log.challenges)):
                 jsons.append(log.challenges[i].format_json())
             dictionary = {"date": log.date, "time": log.time, "challenges": jsons}
-            file.append(dictionary)
+            sessions.append(dictionary)
+        file["sessions"] = sessions
+        parsed = []
+        for mode in gamemodes:
+            parsed.append(mode.format_json())
+        file["gamemodes"] = parsed
         return file
 
-    def export_json(self, fname, data):
-        with open(f'report/{fname}', 'w') as f:
-            json.dump(self.convert_logs_json(data), f)
+    def export_json(self, fname, sessions: list[Session], gamemodes):
+        with open(f'{fname}', 'w') as f:
+            json.dump(self.convert_logs_json(sessions, gamemodes), f)
     
     def __init__(self) -> None:
         self.logs = []

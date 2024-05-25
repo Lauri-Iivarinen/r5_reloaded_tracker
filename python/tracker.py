@@ -16,8 +16,11 @@ def main():
     
     processor = Data_processor(sessions)
     #Process data here with Data_processor
+    processor.split_challenge_types()
+    processor.filter_and_validate_based_on_playtime(120)
+    processor.calculate_avgs_for_all_gamemodes()
 
-    fh.export_json("data.json", sessions)
+    fh.export_json("report/data.json", sessions, processor.with_averages)
 
 if __name__ == "__main__": main()
 
