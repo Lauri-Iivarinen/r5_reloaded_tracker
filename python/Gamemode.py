@@ -7,6 +7,7 @@ class Gamemode:
         for challenge in self.challenges:
             chl.append(challenge.format_json())
         return {
+            "name": self.name,
             "accuracy" : self.accuracy,
             "damage" : self.damage,
             "kills" : self.kills,
@@ -15,7 +16,8 @@ class Gamemode:
             "challenges": chl
         }
 
-    def __init__(self, dct: dict) -> None:
+    def __init__(self, dct: dict, name: str) -> None:
+        self.name = name
         self.accuracy = dct["accuracy"]
         self.damage = dct["damage"]
         self.kills = dct["kills"]

@@ -55,7 +55,7 @@ class Data_processor:
         for key in self.filtered_by_duration_and_mode:
             averages = self.calc_avgs(self.filtered_by_duration_and_mode[key])
             averages["challenges"] = self.filtered_by_duration_and_mode[key]
-            gamemodes.append(Gamemode(averages))
+            gamemodes.append(Gamemode(averages, key))
         
         self.with_averages = gamemodes
 
